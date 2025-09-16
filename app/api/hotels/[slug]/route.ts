@@ -32,20 +32,23 @@ export async function GET(
         .from('meeting_spaces')
         .select('*')
         .eq('hotel_id', hotel.id)
+        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || []),
 
       supabase
-        .from('hotel_galleries')
+        .from('gallery')
         .select('*')
         .eq('hotel_id', hotel.id)
+        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || []),
 
       supabase
-        .from('hotel_venues')
+        .from('venues')
         .select('*')
         .eq('hotel_id', hotel.id)
+        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || [])
     ]);
