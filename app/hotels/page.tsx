@@ -24,9 +24,27 @@ type Hotel = {
 
 // Get hotels from CRM API
 async function getHotels(): Promise<Hotel[]> {
+  // During build time or when site URL points to coming soon page, use direct Supabase
+  const buildTime = !process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost')
+
+  if (buildTime) {
+    const { supabase } = await import('@/lib/supabase')
+    const { data: hotels, error } = await supabase
+      .from('hotels')
+      .select('*')
+      .order('name')
+
+    if (error) {
+      console.error('Error fetching hotels:', error)
+      return []
+    }
+    return hotels || []
+  }
+
+  // During development with local API
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hotels`, {
-      cache: 'no-cache'
+      next: { revalidate: 3600 } // Cache for 1 hour
     })
 
     if (!response.ok) {

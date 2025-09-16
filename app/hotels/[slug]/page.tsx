@@ -63,17 +63,41 @@ async function getHotelBySlug(slug: string): Promise<Hotel | null> {
 
   if (buildTime) {
     const { supabase } = await import('@/lib/supabase')
-    const { data: hotel, error } = await supabase
+
+    // Fetch hotel with related data
+    const { data: hotel, error: hotelError } = await supabase
       .from('hotels')
       .select('*')
       .eq('slug', slug)
       .single()
 
-    if (error || !hotel) {
-      console.error('Error fetching hotel from database:', error)
+    if (hotelError || !hotel) {
+      console.error('Error fetching hotel from database:', hotelError)
       return null
     }
-    return hotel
+
+    // Fetch gallery
+    const { data: gallery } = await supabase
+      .from('gallery')
+      .select('*')
+      .eq('hotel_id', hotel.id)
+      .eq('is_active', true)
+      .order('display_order')
+
+    // Fetch meeting spaces
+    const { data: meetingSpaces } = await supabase
+      .from('meeting_spaces')
+      .select('*')
+      .eq('hotel_id', hotel.id)
+      .eq('is_active', true)
+      .order('display_order')
+
+    // Combine all data
+    return {
+      ...hotel,
+      gallery: gallery || [],
+      meetingSpaces: meetingSpaces || []
+    }
   }
 
   // During development with local API
