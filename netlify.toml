@@ -3,20 +3,20 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPX_YES = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
 [template.environment]
-  NEXT_PUBLIC_SITE_URL = "Change this to your site URL"
-  NEXT_PUBLIC_SUPABASE_URL = "Your Supabase URL"
-  NEXT_PUBLIC_SUPABASE_ANON_KEY = "Your Supabase Anon Key"
-  SUPABASE_SERVICE_ROLE_KEY = "Your Supabase Service Role Key"
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "Your Stripe Publishable Key"
-  STRIPE_SECRET_KEY = "Your Stripe Secret Key"
-  SANITY_PROJECT_ID = "Your Sanity Project ID"
+  NEXT_PUBLIC_SITE_URL = "https://hotelsamb.com"
+  NEXT_PUBLIC_SUPABASE_URL = "https://gnrnkhcavvgfdqysggaa.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imducm5raGNhdnZnZmRxeXNnZ2FhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU0MDQ5NzMsImV4cCI6MjA3MDk4MDk3M30.kgHxvVA1JPsaoZzTqkIlPHbo73EYSrAcnhdIQjyh5JI"
+  SUPABASE_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imducm5raGNhdnZnZmRxeXNnZ2FhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NTQwNDk3MywiZXhwIjoyMDcwOTgwOTczfQ.U5JcexFxjN-9OtYjIfgvUG_SiocvudtXJu_EZKCcweM"
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_placeholder"
+  STRIPE_SECRET_KEY = "sk_test_placeholder"
+  SANITY_PROJECT_ID = "qr7oyxid"
   SANITY_DATASET = "production"
 
 # Static file headers

@@ -23,8 +23,8 @@ export async function GET(
       }, { status: 404 });
     }
     
-    // Get room types for this hotel
-    const roomTypes = await roomTypeQueries.getByHotel(hotel.id);
+    // TODO: Add room types when table is created
+    const roomTypes: any[] = [];
 
     // Get CRM extensions: meeting spaces, galleries, and venues
     const [meetingSpaces, gallery, venues] = await Promise.all([
@@ -32,7 +32,6 @@ export async function GET(
         .from('meeting_spaces')
         .select('*')
         .eq('hotel_id', hotel.id)
-        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || []),
 
@@ -40,7 +39,6 @@ export async function GET(
         .from('hotel_galleries')
         .select('*')
         .eq('hotel_id', hotel.id)
-        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || []),
 
@@ -48,7 +46,6 @@ export async function GET(
         .from('hotel_venues')
         .select('*')
         .eq('hotel_id', hotel.id)
-        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || [])
     ]);

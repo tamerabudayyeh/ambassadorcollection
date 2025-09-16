@@ -12,18 +12,20 @@ interface HotelCardProps {
   location: string
   description: string
   image: string
+  logo?: string
   rating?: number
   price?: number
   featured?: boolean
   className?: string
 }
 
-export function HotelCard({ 
-  slug, 
-  name, 
-  location, 
-  description, 
+export function HotelCard({
+  slug,
+  name,
+  location,
+  description,
   image,
+  logo,
   rating = 4.5,
   price,
   featured = false,
@@ -54,9 +56,25 @@ export function HotelCard({
             {/* Elegant Dark Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             
+            {/* Hotel Logo */}
+            {logo && (
+              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                <Image
+                  src={logo}
+                  alt={`${name} logo`}
+                  width={60}
+                  height={40}
+                  className="object-contain"
+                />
+              </div>
+            )}
+
             {/* Featured Badge */}
             {featured && (
-              <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 text-xs font-light tracking-wider uppercase">
+              <div className={cn(
+                "absolute top-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 text-xs font-light tracking-wider uppercase",
+                logo ? "left-20" : "left-4"
+              )}>
                 Featured
               </div>
             )}

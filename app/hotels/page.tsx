@@ -2,19 +2,43 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { constructMetadata, generateJsonLd } from '@/components/shared/seo'
 import { Metadata } from 'next'
-import hotelsData from '@/Data/hotels.json'
+import { HotelCard } from '@/components/hotel/hotel-card'
+
+// Force dynamic rendering during build
+export const dynamic = 'force-dynamic'
 
 type Hotel = {
+  id: string
   slug: string
   name: string
-  location: string
+  city: string
   description: string
-  image: string
+  image_url: string
+  logo_url?: string
   rating?: number
   featured?: boolean
   order?: number
   character?: string
   heritage?: string
+}
+
+// Get hotels from CRM API
+async function getHotels(): Promise<Hotel[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hotels`, {
+      cache: 'no-cache'
+    })
+
+    if (!response.ok) {
+      return []
+    }
+
+    const data = await response.json()
+    return data.success ? data.hotels : []
+  } catch (error) {
+    console.error('Error fetching hotels:', error)
+    return []
+  }
 }
 
 export const metadata: Metadata = constructMetadata({
@@ -34,214 +58,28 @@ export const metadata: Metadata = constructMetadata({
   canonicalUrl: '/hotels',
 })
 
-const getHotels = (): Hotel[] => {
-  // Enhanced hotel data with unique characteristics
-  const hotelCharacteristics = [
-    {
-      character: "Classic Elegance",
-      heritage: "Nestled in the diplomatic quarter, where history whispers through olive-lined streets"
-    },
-    {
-      character: "Intimate Luxury",
-      heritage: "A sophisticated retreat in the heart of the new city, steps from ancient walls"
-    },
-    {
-      character: "Sacred Journey",
-      heritage: "Where the Star of Bethlehem guides pilgrims on their spiritual odyssey"
-    },
-    {
-      character: "Timeless Heritage",
-      heritage: "A century of hospitality overlooking the sacred Mount of Olives"
-    }
-  ]
 
-  return hotelsData.map((hotel, index) => ({
-    ...hotel,
-    rating: [4.5, 4.3, 4.4, 4.2][index],
-    featured: index < 2,
-    order: index + 1,
-    character: hotelCharacteristics[index]?.character,
-    heritage: hotelCharacteristics[index]?.heritage
-  }))
-}
 
-function HotelShowcase({ hotel, index }: { hotel: Hotel; index: number }) {
-  const isEven = index % 2 === 0
-  
-  return (
-    <div className="mb-32 last:mb-0">
-      <div className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-center ${isEven ? '' : 'lg:grid-cols-2'}`}>
-        {/* Image Section */}
-        <div className={`relative ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-          <div className="relative aspect-[5/4] rounded-3xl overflow-hidden shadow-2xl group">
-            <Image
-              src={hotel.image || 'https://cdn.sanity.io/images/qr7oyxid/production/8da3cd1a1e4d887be72e7d9182b58d10c80a3024-1024x636.jpg?rect=88,0,848,636&w=800&h=600'}
-              alt={hotel.name}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            
-            {/* Character Badge */}
-            {hotel.character && (
-              <div className="absolute top-6 left-6 glass-morphism-dark text-white px-4 py-2 rounded-full text-sm font-light tracking-wider">
-                {hotel.character}
-              </div>
-            )}
-            
-            {/* Rating */}
-            {hotel.rating && (
-              <div className="absolute top-6 right-6 glass-morphism text-stone-900 px-3 py-2 rounded-full">
-                <div className="flex items-center gap-1">
-                  <span className="text-amber-500">★</span>
-                  <span className="text-sm font-medium">{hotel.rating}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          {/* Decorative elements */}
-          <div className={`absolute -z-10 w-72 h-72 rounded-full blur-3xl opacity-20 ${
-            index === 0 ? 'bg-gradient-to-br from-amber-300 to-orange-300 -top-16 -right-16' :
-            index === 1 ? 'bg-gradient-to-br from-rose-300 to-pink-300 -bottom-16 -left-16' :
-            index === 2 ? 'bg-gradient-to-br from-emerald-300 to-teal-300 -top-16 -left-16' :
-            'bg-gradient-to-br from-violet-300 to-purple-300 -bottom-16 -right-16'
-          }`} />
-        </div>
-        
-        {/* Content Section */}
-        <div className={`space-y-8 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 text-stone-500">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-              <span className="font-light tracking-wide font-body">{hotel.location}</span>
-            </div>
-            
-            <h3 className="text-3xl md:text-4xl font-heading font-light text-stone-900 leading-tight">
-              {hotel.name}
-            </h3>
-            
-            {hotel.heritage && (
-              <p className="text-lg text-amber-700 font-light italic leading-relaxed font-body">
-                "{hotel.heritage}"
-              </p>
-            )}
-            
-            <p className="text-lg text-stone-600 font-light leading-relaxed font-body">
-              {hotel.description}
-            </p>
-          </div>
-          
-          {/* Features Grid */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <svg className="w-3 h-3 text-amber-700" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-medium text-stone-900 mb-1 font-body">Prime Location</p>
-                <p className="text-sm text-stone-600 font-light leading-relaxed font-body">
-                  Minutes from sacred sites and cultural landmarks
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <svg className="w-3 h-3 text-rose-700" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-medium text-stone-900 mb-1 font-body">Personal Service</p>
-                <p className="text-sm text-stone-600 font-light leading-relaxed font-body">
-                  Dedicated concierge for authentic local experiences
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <svg className="w-3 h-3 text-emerald-700" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-medium text-stone-900 mb-1 font-body">Modern Comfort</p>
-                <p className="text-sm text-stone-600 font-light leading-relaxed font-body">
-                  Contemporary amenities with traditional warmth
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <svg className="w-3 h-3 text-violet-700" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-medium text-stone-900 mb-1 font-body">Cultural Connection</p>
-                <p className="text-sm text-stone-600 font-light leading-relaxed font-body">
-                  Immersive local experiences and storytelling
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-6">
-            <Link 
-              href={`/hotels/${hotel.slug}`}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-stone-900 to-stone-800 text-white font-medium text-sm uppercase tracking-wider hover:from-stone-800 hover:to-stone-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-body"
-            >
-              <span>Discover More</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-            
-            <Link 
-              href={`/booking?hotel=${encodeURIComponent(hotel.name)}`}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-amber-600 text-amber-700 hover:bg-amber-600 hover:text-white font-medium text-sm uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl font-body"
-            >
-              <span>Reserve Now</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default function HotelsPage() {
-  const hotels = getHotels()
-  const featuredHotels = hotels.filter(h => h.featured)
+export default async function HotelsPage() {
+  const hotels = await getHotels()
 
   // Generate structured data for all hotels
   const hotelSchemas = hotels.map(hotel => generateJsonLd('Hotel', {
     name: hotel.name,
     description: hotel.description,
     url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://ambassadorcollection.com'}/hotels/${hotel.slug}`,
-    image: hotel.image,
+    image: hotel.image_url,
     telephone: '+972-2-123-4567',
     email: 'info@ambassadorcollection.com',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: hotel.location,
-      addressCountry: hotel.location.includes('Bethlehem') ? 'PS' : 'IL'
+      addressLocality: hotel.city,
+      addressCountry: hotel.city.includes('Bethlehem') ? 'PS' : 'IL'
     },
     priceRange: '$$-$$$',
     starRating: {
       '@type': 'Rating',
-      ratingValue: hotel.rating || 4,
+      ratingValue: 4.5,
       bestRating: 5
     },
     amenityFeature: [
@@ -391,7 +229,7 @@ export default function HotelsPage() {
           </div>
         </section>
 
-        {/* Hotel Showcase - Each hotel gets unique treatment */}
+        {/* Hotel Showcase - Grid of hotel cards with logos */}
         <section className="py-20 lg:py-32 bg-stone-50">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
             <div className="text-center mb-20">
@@ -405,10 +243,22 @@ export default function HotelsPage() {
               </h2>
               <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto" />
             </div>
-            
-            {hotels.map((hotel, index) => (
-              <HotelShowcase key={hotel.slug} hotel={hotel} index={index} />
-            ))}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {hotels.map((hotel, index) => (
+                <HotelCard
+                  key={hotel.slug}
+                  slug={hotel.slug}
+                  name={hotel.name}
+                  location={hotel.city}
+                  description={hotel.description}
+                  image={hotel.image_url}
+                  logo={hotel.logo_url}
+                  rating={4.5}
+                  featured={index < 2}
+                />
+              ))}
+            </div>
           </div>
         </section>
 

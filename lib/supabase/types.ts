@@ -435,6 +435,7 @@ export interface Database {
           policies: Json
           coordinates: unknown | null
           status: Database['public']['Enums']['room_status']
+          logo_url: string | null
           created_at: string
           updated_at: string
         }
@@ -460,6 +461,7 @@ export interface Database {
           policies?: Json
           coordinates?: unknown | null
           status?: Database['public']['Enums']['room_status']
+          logo_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -485,6 +487,7 @@ export interface Database {
           policies?: Json
           coordinates?: unknown | null
           status?: Database['public']['Enums']['room_status']
+          logo_url?: string | null
           created_at?: string
           updated_at?: string
         }

@@ -16,6 +16,41 @@ const adminSupabase = createClient(
 
 export async function POST(request: NextRequest) {
   try {
+    const body = await request.json()
+
+    // Handle logo addition request
+    if (body.type === 'add_hotel_logos') {
+      console.log('🎨 Adding hotel logos...')
+
+      const results = {
+        hotels_updated: 0,
+        errors: [] as string[]
+      }
+
+      // Note: logo_url column should be added via SQL migration
+
+      // Update each hotel with its logo
+      for (const [hotelSlug, logoUrl] of Object.entries(body.logos)) {
+        const { error } = await adminSupabase
+          .from('hotels')
+          .update({ logo_url: logoUrl })
+          .eq('slug', hotelSlug)
+
+        if (error) {
+          results.errors.push(`Failed to update logo for ${hotelSlug}: ${error.message}`)
+        } else {
+          results.hotels_updated++
+          console.log(`✅ Logo updated for ${hotelSlug}`)
+        }
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: 'Hotel logos added successfully',
+        results
+      })
+    }
+
     console.log('🏨 Starting JSON to CRM migration...')
 
     const results = {
