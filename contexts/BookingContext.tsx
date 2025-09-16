@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { RoomType, RatePlanWithPricing } from '@/lib/booking-types';
-import { SupportedCurrency } from '@/lib/stripe/config';
 
 interface Hotel {
   _id: string;
@@ -74,8 +73,8 @@ interface BookingContextType {
   guestInfo: GuestInfo | null;
   paymentInfo: PaymentInfo | null;
   bookingReference: string | null;
-  selectedCurrency: SupportedCurrency;
-  exchangeRates: Record<SupportedCurrency, number>;
+  selectedCurrency: string;
+  exchangeRates: Record<string, number>;
   dateRange: { from: Date | undefined; to: Date | undefined } | undefined;
   setSelectedHotel: (hotel: Hotel | null) => void;
   setDates: (checkIn: Date | null, checkOut: Date | null) => void;
@@ -87,7 +86,7 @@ interface BookingContextType {
   setGuestInfo: (info: GuestInfo | null) => void;
   setPaymentInfo: (info: PaymentInfo | null) => void;
   setBookingReference: (reference: string | null) => void;
-  setSelectedCurrency: (currency: SupportedCurrency) => void;
+  setSelectedCurrency: (currency: string) => void;
   setDateRange: (range: { from: Date | undefined; to: Date | undefined } | undefined) => void;
   resetBooking: () => void;
 }
@@ -172,8 +171,8 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children: c
   const [guestInfo, setGuestInfo] = useState<GuestInfo | null>(null);
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo | null>(null);
   const [bookingReference, setBookingReference] = useState<string | null>(null);
-  const [selectedCurrency, setSelectedCurrency] = useState<SupportedCurrency>('USD');
-  const [exchangeRates, setExchangeRates] = useState<Record<SupportedCurrency, number>>({
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('USD');
+  const [exchangeRates, setExchangeRates] = useState<Record<string, number>>({
     USD: 1.0,
     EUR: 0.85,
     GBP: 0.75,

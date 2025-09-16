@@ -114,7 +114,7 @@ export interface Booking {
   // Payment
   paymentStatus: 'pending' | 'partial' | 'paid' | 'refunded';
   paymentMethod?: 'card' | 'cash' | 'bank_transfer' | 'other';
-  paymentIntentId?: string; // Stripe/payment processor reference
+  paymentIntentId?: string; // Payment processor reference
   depositAmount?: number;
   depositPaid?: boolean;
   

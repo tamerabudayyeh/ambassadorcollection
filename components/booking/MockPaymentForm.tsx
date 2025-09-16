@@ -4,7 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useBooking } from '@/contexts/BookingContext';
 import { CreditCard, Shield, AlertCircle, Loader2, Check, X } from 'lucide-react';
-import { formatCurrency } from '@/lib/stripe/config';
+// Simple currency formatter
+const formatCurrency = (amount: number, currency: string = 'USD') => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).format(amount);
+};
 import { CancellationPolicy } from '@/components/booking/CancellationPolicy';
 
 interface MockPaymentFormData {

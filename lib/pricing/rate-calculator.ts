@@ -3,8 +3,6 @@
  * Ensures consistent pricing across all booking components
  */
 
-import { SupportedCurrency } from '@/lib/stripe/config';
-
 export interface RateCalculationInput {
   baseRate: number;
   numberOfNights: number;
@@ -12,8 +10,8 @@ export interface RateCalculationInput {
   roomTypeId: string;
   checkInDate: Date;
   checkOutDate: Date;
-  currency: SupportedCurrency;
-  exchangeRates: Record<SupportedCurrency, number>;
+  currency: string;
+  exchangeRates: Record<string, number>;
   ratePlanType?: 'flexible' | 'non_refundable' | 'advance_purchase';
   guests: {
     adults: number;
@@ -27,7 +25,7 @@ export interface RateBreakdown {
   fees: FeeBreakdown;
   discounts: DiscountBreakdown;
   totalAmount: number;
-  currency: SupportedCurrency;
+  currency: string;
   averageNightlyRate: number;
   depositAmount: number;
   depositPercentage: number;
