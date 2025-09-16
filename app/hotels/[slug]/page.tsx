@@ -8,8 +8,8 @@ import { Calendar, Users, MapPin, Sparkles, Clock } from 'lucide-react'
 import { StructuredData, generateHotelSchema } from '@/components/seo/StructuredData'
 import { generateHotelMetadata } from '@/components/seo/MetaTags'
 
-// Force dynamic rendering during build to avoid API issues
-export const dynamic = 'force-dynamic'
+// Use ISR (Incremental Static Regeneration) for hotel pages
+export const revalidate = 3600 // Revalidate every hour
 
 // CRM-based Hotel type
 type Hotel = {
@@ -58,9 +58,28 @@ type Venue = {
 
 // Get hotel data from CRM API
 async function getHotelBySlug(slug: string): Promise<Hotel | null> {
+  // During build time, use direct Supabase call to avoid API dependency
+  const buildTime = !process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost')
+
+  if (buildTime) {
+    const { supabase } = await import('@/lib/supabase')
+    const { data: hotel, error } = await supabase
+      .from('hotels')
+      .select('*')
+      .eq('slug', slug)
+      .single()
+
+    if (error || !hotel) {
+      console.error('Error fetching hotel from database:', error)
+      return null
+    }
+    return hotel
+  }
+
+  // During development with local API
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hotels/${slug}`, {
-      cache: 'no-cache' // Always fetch fresh data during development
+      next: { revalidate: 3600 } // Cache for 1 hour
     })
 
     if (!response.ok) {
