@@ -58,10 +58,8 @@ type Venue = {
 
 // Get hotel data from CRM API
 async function getHotelBySlug(slug: string): Promise<Hotel | null> {
-  // During build time, use direct Supabase call to avoid API dependency
-  const buildTime = !process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost')
-
-  if (buildTime) {
+  // Always use direct Supabase calls to avoid API circular dependency issues
+  try {
     const { supabase } = await import('@/lib/supabase')
 
     // Fetch hotel with related data
@@ -78,10 +76,9 @@ async function getHotelBySlug(slug: string): Promise<Hotel | null> {
 
     // Fetch gallery
     const { data: gallery } = await supabase
-      .from('gallery')
+      .from('hotel_galleries')
       .select('*')
       .eq('hotel_id', hotel.id)
-      .eq('is_active', true)
       .order('display_order')
 
     // Fetch meeting spaces
@@ -98,20 +95,6 @@ async function getHotelBySlug(slug: string): Promise<Hotel | null> {
       gallery: gallery || [],
       meetingSpaces: meetingSpaces || []
     }
-  }
-
-  // During development with local API
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/hotels/${slug}`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
-    })
-
-    if (!response.ok) {
-      return null
-    }
-
-    const data = await response.json()
-    return data.success ? data.data.hotel : null
   } catch (error) {
     console.error('Error fetching hotel:', error)
     return null

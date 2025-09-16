@@ -32,10 +32,8 @@ interface Restaurant {
 }
 
 async function getRestaurants(): Promise<Restaurant[]> {
-  // During build time or when site URL points to coming soon page, use direct Supabase
-  const buildTime = !process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost')
-
-  if (buildTime) {
+  // Always use direct Supabase calls to avoid API circular dependency issues
+  try {
     const { supabase } = await import('@/lib/supabase')
     const { data: restaurants, error } = await supabase
       .from('restaurants')
@@ -56,21 +54,6 @@ async function getRestaurants(): Promise<Restaurant[]> {
       return []
     }
     return restaurants || []
-  }
-
-  // During development with local API
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/restaurants`, {
-      next: { revalidate: 3600 } // Cache for 1 hour
-    })
-
-    if (!response.ok) {
-      console.error('Failed to fetch restaurants:', response.status)
-      return []
-    }
-
-    const data = await response.json()
-    return data.success ? data.restaurants : []
   } catch (error) {
     console.error('Error fetching restaurants:', error)
     return []
