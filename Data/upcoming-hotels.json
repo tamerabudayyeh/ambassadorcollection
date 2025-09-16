@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "ambassador-bethlehem",
+    "name": "Ambassador Bethlehem",
+    "location": "Bethlehem",
+    "description": "A new jewel in the heart of Bethlehem, near the Church of the Nativity. This upcoming property will offer luxury accommodation with panoramic views of the historical city and modern amenities for discerning travelers.",
+    "expectedOpening": "2025",
+    "image": "https://cdn.sanity.io/images/qr7oyxid/production/6c2eb363c8fedc676fcf4318983aa395d11d7bd3-1024x683.jpg",
+    "features": [
+      "150 luxury rooms and suites",
+      "Rooftop restaurant with city views",
+      "Spa and wellness center",
+      "Conference facilities",
+      "Walking distance to Church of the Nativity"
+    ]
+  },
+  {
+    "slug": "ambassador-tiberias",
+    "name": "Ambassador Tiberias",
+    "location": "Tiberias",
+    "description": "Overlooking the serene Sea of Galilee, Ambassador Tiberias will be a haven of tranquility. This lakeside resort will combine spiritual significance with resort-style luxury, perfect for both pilgrims and leisure travelers.",
+    "expectedOpening": "2025",
+    "image": "https://cdn.sanity.io/images/qr7oyxid/production/96162c2a7d1761f1d877e7ad11df394c1bb83bec-1024x683.jpg",
+    "features": [
+      "Direct beach access to Sea of Galilee",
+      "180 rooms with lake or garden views",
+      "Multiple dining venues",
+      "Infinity pools",
+      "Private marina and water sports"
+    ]
+  },
+  {
+    "slug": "oud-amman",
+    "name": "Oud Amman",
+    "location": "Amman, Jordan",
+    "description": "Our first venture into Jordan, Oud Amman will bring Ambassador Collection's signature hospitality to the vibrant capital. Located in the diplomatic quarter, it will serve as a gateway to Jordan's historical treasures.",
+    "expectedOpening": "2026",
+    "image": "https://cdn.sanity.io/images/qr7oyxid/production/8da3cd1a1e4d887be72e7d9182b58d10c80a3024-1024x636.jpg",
+    "features": [
+      "200 contemporary rooms and suites",
+      "Authentic Jordanian restaurant",
+      "Business center and meeting rooms",
+      "Fitness center and spa",
+      "Shuttle service to Petra and Dead Sea"
+    ]
+  }
+]

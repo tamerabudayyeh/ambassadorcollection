@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "al-diwan",
+    "name": "Al-Diwan Restaurant",
+    "location": "Ambassador Jerusalem",
+    "cuisine": "Authentic Middle Eastern",
+    "description": "Experience the rich flavors of traditional Palestinian and Middle Eastern cuisine at Al-Diwan. Our master chefs prepare time-honored recipes using the freshest local ingredients, creating an unforgettable dining journey in an elegant setting.",
+    "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/RestaurantPhotos/RestaurantPepper.webp",
+    "hours": {
+      "breakfast": "6:30 AM - 10:30 AM",
+      "lunch": "12:00 PM - 3:00 PM",
+      "dinner": "6:30 PM - 10:30 PM"
+    },
+    "features": [
+      "Traditional Palestinian cuisine",
+      "Live cooking stations",
+      "Private dining rooms",
+      "Panoramic city views",
+      "Halal certified"
+    ],
+    "status": "open"
+  }
+]

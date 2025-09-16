@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPX_YES = "true"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[template.environment]
+  NEXT_PUBLIC_SITE_URL = "Change this to your site URL"
+  NEXT_PUBLIC_SUPABASE_URL = "Your Supabase URL"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "Your Supabase Anon Key"
+  SUPABASE_SERVICE_ROLE_KEY = "Your Supabase Service Role Key"
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "Your Stripe Publishable Key"
+  STRIPE_SECRET_KEY = "Your Stripe Secret Key"
+  SANITY_PROJECT_ID = "Your Sanity Project ID"
+  SANITY_DATASET = "production"
+
+# Static file headers
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"

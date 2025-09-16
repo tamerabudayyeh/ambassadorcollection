@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "ambassador-jerusalem",
+    "name": "Ambassador Jerusalem",
+    "location": "Jerusalem",
+    "description": "Ambassador Jerusalem is located in the consulate district, a quiet neighborhood in Jerusalem, offering modern accommodation and free Wi-Fi.",
+    "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemCard.webp",
+    "gallery": [
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemCard.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemGym.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemLobbyWine.webp"
+    ]
+  },
+  {
+    "slug": "ambassador-boutique",
+    "name": "Ambassador Boutique",
+    "location": "Jerusalem",
+    "description": "Ambassador Boutique is located in downtown Jerusalem, nestled in the heart of the commercial district, a two-minute enjoyable stroll to the Old City of Jerusalem.",
+    "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueJuniorSuite1.webp",
+    "gallery": [
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueJuniorSuite1.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueKeycard.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueMeeting.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueMeeting2.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/RedVelvetBoutique.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/RedVelvetBoutique2.webp"
+    ],
+    "meetingSpaces": [
+      {
+        "name": "Boutique Rooftop Meeting Room",
+        "description": "An elegant rooftop meeting space with breathtaking views of Jerusalem's skyline. Perfect for executive meetings, private events, and intimate gatherings, combining sophisticated ambiance with state-of-the-art facilities.",
+        "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorBoutique/BoutiqueMeeting2.webp",
+        "capacity": "20-30 guests",
+        "availability": "By appointment",
+        "features": [
+          "Panoramic Jerusalem views",
+          "State-of-the-art AV equipment",
+          "Executive boardroom setup",
+          "Private catering available",
+          "Natural daylight",
+          "Climate controlled"
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "ambassador-city",
+    "name": "Ambassador City Hotel",
+    "location": "Bethlehem",
+    "description": "Located at the entrance of historical Star Street, Ambassador City has modern rooms and features the Herodium rooftop bar with spectacular views of Bethlehem and Jerusalem.",
+    "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium1.webp",
+    "gallery": [
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium1.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium2.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium3.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium4.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/Herodium/Herodium5.webp"
+    ]
+  },
+  {
+    "slug": "ambassador-comfort",
+    "name": "Ambassador Comfort",
+    "location": "East Jerusalem",
+    "description": "Ambassador Comfort (formerly Ritz Hotel) is one of the oldest hotels in East Jerusalem, newly renovated. Located a short walk from the Old City, with balconies overlooking Mount Scopus.",
+    "image": "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorComfort/ComfortLobby.webp",
+    "gallery": [
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorComfort/ComfortLobby.webp",
+      "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorComfort/ComfortRooftop.webp"
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+<testsuites id="" name="" tests="3" failures="1" skipped="0" errors="0" time="31.759347">
+<testsuite name="e2e/datepicker-verification.spec.ts" timestamp="2025-08-18T08:40:19.626Z" hostname="chromium" tests="3" failures="1" skipped="0" time="37.31" errors="0">
+<testcase name="DatePicker Verification - Desktop Functionality Working › should successfully open and interact with DatePicker on desktop" classname="e2e/datepicker-verification.spec.ts" time="30.539">
+<failure message="datepicker-verification.spec.ts:4:7 should successfully open and interact with DatePicker on desktop" type="FAILURE">
+<![CDATA[  [chromium] › e2e/datepicker-verification.spec.ts:4:7 › DatePicker Verification - Desktop Functionality Working › should successfully open and interact with DatePicker on desktop 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('button[name="day"]:not([disabled])').first()
+        - locator resolved to <button name="day" tabindex="0" type="button" role="gridcell" class="rdp-button_reset rdp-button rdp-day rdp-day_today">18</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is not visible
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is not visible
+        - retrying click action
+          - waiting 100ms
+        54 × waiting for element to be visible, enabled and stable
+           - element is not visible
+         - retrying click action
+           - waiting 500ms
+
+
+      40 |     if (availableDatesCount > 0) {
+      41 |       // Click the first available date
+    > 42 |       await dateButtons.first().click();
+         |                                 ^
+      43 |       await page.waitForTimeout(300);
+      44 |       
+      45 |       // Check if the input value changed (indicating successful date selection)
+        at /Users/tamer/Documents/Zeina_Colab/NewAmbCollWebsite/project/tests/e2e/datepicker-verification.spec.ts:42:33
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[Calendar elements found: 4
+Available date buttons: 40
+
+[[ATTACHMENT|e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/video.webm]]
+
+[[ATTACHMENT|e2e-datepicker-verificatio-f7f5d--with-DatePicker-on-desktop-chromium/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="DatePicker Verification - Desktop Functionality Working › should verify DatePicker accessibility features" classname="e2e/datepicker-verification.spec.ts" time="2.837">
+<system-out>
+<![CDATA[✅ Keyboard navigation test completed
+]]>
+</system-out>
+</testcase>
+<testcase name="DatePicker Verification - Desktop Functionality Working › should verify mobile vs desktop behavior" classname="e2e/datepicker-verification.spec.ts" time="3.934">
+<system-out>
+<![CDATA[Desktop dropdown visible: true
+Mobile overlay visible: true
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

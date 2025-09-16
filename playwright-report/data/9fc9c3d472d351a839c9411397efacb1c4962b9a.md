@@ -1,0 +1,212 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link "Ambassador Collection":
+    - /url: /
+  - navigation:
+    - link "Home":
+      - /url: /
+    - link "Rooms":
+      - /url: /hotels
+    - link "Book Now":
+      - /url: /booking
+    - link "Manage Booking":
+      - /url: /manage-booking
+    - link "About":
+      - /url: /about
+    - link "Contact":
+      - /url: /contact
+  - link:
+    - /url: tel:+972-2-123-4567
+    - img
+  - link "Book Now":
+    - /url: /booking
+- main:
+  - heading "Book Your Stay" [level=1]
+  - text: Hotel
+  - combobox "Hotel":
+    - option "Select a hotel" [selected]
+    - option "Ambassador Boutique - Jerusalem, Israel"
+    - option "Ambassador City Hotel - Bethlehem"
+    - option "Ambassador Comfort - East Jerusalem"
+    - option "Ambassador Jerusalem - Jerusalem, Israel"
+  - img
+  - img
+  - text: Check-in / Check-out
+  - button "Select check-in and check-out dates" [expanded]: Select dates
+  - text: August 2025
+  - button "Go to previous month":
+    - img
+  - button "Go to next month":
+    - img
+  - grid "August 2025":
+    - rowgroup:
+      - row "Sunday Monday Tuesday Wednesday Thursday Friday Saturday":
+        - columnheader "Sunday": Su
+        - columnheader "Monday": Mo
+        - columnheader "Tuesday": Tu
+        - columnheader "Wednesday": We
+        - columnheader "Thursday": Th
+        - columnheader "Friday": Fr
+        - columnheader "Saturday": Sa
+    - rowgroup:
+      - row "27 28 29 30 31 1 2":
+        - gridcell "27" [disabled]
+        - gridcell "28" [disabled]
+        - gridcell "29" [disabled]
+        - gridcell "30" [disabled]
+        - gridcell "31" [disabled]
+        - gridcell "1" [disabled]
+        - gridcell "2" [disabled]
+      - row "3 4 5 6 7 8 9":
+        - gridcell "3" [disabled]
+        - gridcell "4" [disabled]
+        - gridcell "5" [disabled]
+        - gridcell "6" [disabled]
+        - gridcell "7" [disabled]
+        - gridcell "8" [disabled]
+        - gridcell "9" [disabled]
+      - row "10 11 12 13 14 15 16":
+        - gridcell "10" [disabled]
+        - gridcell "11" [disabled]
+        - gridcell "12" [disabled]
+        - gridcell "13" [disabled]
+        - gridcell "14" [disabled]
+        - gridcell "15" [disabled]
+        - gridcell "16" [disabled]
+      - row "17 18 19 20 21 22 23":
+        - gridcell "17" [disabled]
+        - gridcell "18"
+        - gridcell "19"
+        - gridcell "20"
+        - gridcell "21"
+        - gridcell "22"
+        - gridcell "23"
+      - row "24 25 26 27 28 29 30":
+        - gridcell "24"
+        - gridcell "25"
+        - gridcell "26"
+        - gridcell "27"
+        - gridcell "28"
+        - gridcell "29"
+        - gridcell "30"
+      - row "31 1 2 3 4 5 6":
+        - gridcell "31"
+        - gridcell "1"
+        - gridcell "2"
+        - gridcell "3"
+        - gridcell "4"
+        - gridcell "5"
+        - gridcell "6"
+  - button "Clear"
+  - button "Close"
+  - text: Guests & Rooms
+  - textbox "Guests & Rooms": 2 Adults, 1 Room
+  - img
+  - img
+  - button "Search Rooms" [disabled]:
+    - img
+    - text: Search Rooms
+  - img "Luxury hotel"
+  - heading "Experience Exceptional Luxury" [level=1]
+  - paragraph: Discover our collection of distinguished hotels
+  - heading "Our Hotels" [level=2]
+  - img "Ambassador Boutique"
+  - img
+  - img
+  - img
+  - img
+  - img
+  - heading "Ambassador Boutique" [level=3]
+  - img
+  - text: Jerusalem, Israel
+  - paragraph: An intimate boutique hotel offering personalized luxury and exceptional service in a charming setting.
+  - img "Ambassador City Hotel"
+  - img
+  - img
+  - img
+  - img
+  - heading "Ambassador City Hotel" [level=3]
+  - img
+  - text: Bethlehem
+  - paragraph: Located at the entrance of historical Star Street, Ambassador City has modern rooms and a rooftop restaurant with views of Bethlehem and Jerusalem.
+  - img "Ambassador Comfort"
+  - img
+  - img
+  - img
+  - img
+  - img
+  - heading "Ambassador Comfort" [level=3]
+  - img
+  - text: East Jerusalem
+  - paragraph: One of the oldest hotels in East Jerusalem, newly renovated. Located a short walk from the Old City, with balconies overlooking Mount Scopus.
+  - img "Ambassador Jerusalem"
+  - img
+  - img
+  - img
+  - img
+  - img
+  - heading "Ambassador Jerusalem" [level=3]
+  - img
+  - text: Jerusalem, Israel
+  - paragraph: A luxury hotel in the heart of Jerusalem, offering stunning city views and world-class amenities. Experience the perfect blend of ancient history and modern comfort.
+- contentinfo:
+  - heading "Ambassador" [level=2]
+  - paragraph: Collection
+  - paragraph: Luxury accommodations in the Holy Land, where ancient heritage meets contemporary elegance. Creating unforgettable experiences since 1995.
+  - link "Facebook":
+    - /url: https://facebook.com/ambassadorcollection
+    - img
+  - link "Instagram":
+    - /url: https://instagram.com/ambassadorcollection
+    - img
+  - link "Twitter":
+    - /url: https://twitter.com/ambassadorhotels
+    - img
+  - heading "Discover" [level=3]
+  - list:
+    - listitem:
+      - link "Home":
+        - /url: /
+    - listitem:
+      - link "Our Collection":
+        - /url: /hotels
+    - listitem:
+      - link "Our Story":
+        - /url: /about
+    - listitem:
+      - link "Contact":
+        - /url: /contact
+    - listitem:
+      - link "Reservations":
+        - /url: /booking
+    - listitem:
+      - link "Manage Booking":
+        - /url: /manage-booking
+  - heading "Information" [level=3]
+  - list:
+    - listitem:
+      - link "Careers":
+        - /url: /careers
+    - listitem:
+      - link "Privacy Policy":
+        - /url: /privacy-policy
+    - listitem:
+      - link "Terms & Conditions":
+        - /url: /terms
+    - listitem:
+      - link "FAQs":
+        - /url: /faq
+  - heading "Connect" [level=3]
+  - img
+  - text: Jerusalem & Bethlehem Holy Land
+  - img
+  - link "+972-2-123-4567":
+    - /url: tel:+972-2-123-4567
+  - img
+  - link "info@ambassadorcollection.com":
+    - /url: mailto:info@ambassadorcollection.com
+  - paragraph: © 2024 Ambassador Collection. All rights reserved.
+- alert
+```

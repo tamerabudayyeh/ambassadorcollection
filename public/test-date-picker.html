@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Picker Test Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .success { border-color: #28a745; background-color: #d4edda; }
+        .warning { border-color: #ffc107; background-color: #fff3cd; }
+        .error { border-color: #dc3545; background-color: #f8d7da; }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover { background-color: #0056b3; }
+        .info-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .debug-info {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Desktop Date Picker Test Suite</h1>
+        <p><strong>Purpose:</strong> Manual testing of the date picker fixes for desktop browsers</p>
+        
+        <div class="test-section">
+            <h2>📊 System Information</h2>
+            <div class="debug-info" id="systemInfo">Loading...</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎯 Quick Tests</h2>
+            <button class="btn" onclick="openBookingPage()">Open Booking Page</button>
+            <button class="btn" onclick="openBookingPageNewTab()">Open in New Tab</button>
+            <button class="btn" onclick="testViewport()">Test Current Viewport</button>
+            <button class="btn" onclick="runBrowserTests()">Run Browser Tests</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>📋 Manual Testing Checklist</h2>
+            <div id="testChecklist">
+                <h3>Desktop Tests (Viewport ≥ 768px)</h3>
+                <label><input type="checkbox"> Click on date picker input</label><br>
+                <label><input type="checkbox"> Verify dropdown opens immediately</label><br>
+                <label><input type="checkbox"> Select a check-in date</label><br>
+                <label><input type="checkbox"> Select a check-out date</label><br>
+                <label><input type="checkbox"> Verify dates appear in input field</label><br>
+                <label><input type="checkbox"> Click outside to close dropdown</label><br>
+                <label><input type="checkbox"> Test on Chrome</label><br>
+                <label><input type="checkbox"> Test on Firefox</label><br>
+                <label><input type="checkbox"> Test on Safari</label><br>
+                <label><input type="checkbox"> Test on Edge</label><br>
+                
+                <h3>Mobile Tests (Viewport < 768px)</h3>
+                <label><input type="checkbox"> Resize window to mobile size</label><br>
+                <label><input type="checkbox"> Click on date picker input</label><br>
+                <label><input type="checkbox"> Verify full-screen overlay appears</label><br>
+                <label><input type="checkbox"> No desktop dropdown visible</label><br>
+                <label><input type="checkbox"> Mobile interface works correctly</label><br>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔍 Debug Console</h2>
+            <p>Expected console messages when clicking date picker:</p>
+            <div class="debug-info">
+                ✅ "DatePicker input clicked, event type: click, current isOpen: false"<br>
+                ✅ "Setting isOpen from false to true"<br>
+                ✅ "Input focused" (desktop only)
+            </div>
+            
+            <h3>Browser Developer Tools</h3>
+            <p>Press <strong>F12</strong> to open developer tools, then:</p>
+            <ol>
+                <li>Go to <strong>Console</strong> tab</li>
+                <li>Navigate to booking page</li>
+                <li>Click date picker input</li>
+                <li>Look for the messages above</li>
+                <li>Check <strong>Elements</strong> tab for dropdown visibility</li>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h2>⚠️ Common Issues & Solutions</h2>
+            
+            <div class="error">
+                <h4>❌ Dropdown doesn't open on click</h4>
+                <p><strong>Check:</strong></p>
+                <ul>
+                    <li>Browser console for JavaScript errors</li>
+                    <li>Window width is ≥ 768px</li>
+                    <li>Element with <code>data-testid="desktop-datepicker-dropdown"</code> exists</li>
+                </ul>
+            </div>
+            
+            <div class="warning">
+                <h4>⚠️ Dropdown appears but can't select dates</h4>
+                <p><strong>Check:</strong></p>
+                <ul>
+                    <li>Z-index conflicts with other elements</li>
+                    <li>Pointer events are enabled on calendar days</li>
+                    <li>No CSS overlays blocking interaction</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <h4>✅ Everything works correctly</h4>
+                <p>Congratulations! The date picker fixes are working properly.</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📱 Viewport Testing</h2>
+            <button class="btn" onclick="setViewport(1920, 1080)">1920x1080</button>
+            <button class="btn" onclick="setViewport(1440, 900)">1440x900</button>
+            <button class="btn" onclick="setViewport(1024, 768)">1024x768</button>
+            <button class="btn" onclick="setViewport(768, 1024)">768x1024</button>
+            <button class="btn" onclick="setViewport(375, 667)">375x667 (Mobile)</button>
+            
+            <div class="info-box" id="viewportInfo">
+                Current viewport: <span id="currentViewport">Unknown</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔗 Useful Links</h2>
+            <a href="http://localhost:3002/booking" class="btn" target="_blank">Booking Page</a>
+            <a href="http://localhost:3002" class="btn" target="_blank">Homepage</a>
+            <a href="#" class="btn" onclick="location.reload()">Refresh This Page</a>
+        </div>
+    </div>
+    
+    <script>
+        // Update system information
+        function updateSystemInfo() {
+            const info = document.getElementById('systemInfo');
+            const viewport = getViewportSize();
+            
+            info.innerHTML = `
+                <strong>Browser:</strong> ${navigator.userAgent}<br>
+                <strong>Viewport:</strong> ${viewport.width}x${viewport.height}<br>
+                <strong>Screen:</strong> ${screen.width}x${screen.height}<br>
+                <strong>Touch Support:</strong> ${'ontouchstart' in window ? 'Yes' : 'No'}<br>
+                <strong>Device Type:</strong> ${viewport.width >= 768 ? 'Desktop' : 'Mobile'}<br>
+                <strong>Timestamp:</strong> ${new Date().toLocaleString()}
+            `;
+        }
+        
+        function getViewportSize() {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
+        
+        function updateViewportInfo() {
+            const viewport = getViewportSize();
+            document.getElementById('currentViewport').textContent = `${viewport.width}x${viewport.height}`;
+        }
+        
+        function openBookingPage() {
+            window.location.href = 'http://localhost:3002/booking';
+        }
+        
+        function openBookingPageNewTab() {
+            window.open('http://localhost:3002/booking', '_blank');
+        }
+        
+        function setViewport(width, height) {
+            // This only works in developer tools device emulation mode
+            alert(`Please use browser developer tools to set viewport to ${width}x${height}`);
+        }
+        
+        function testViewport() {
+            const viewport = getViewportSize();
+            const isDesktop = viewport.width >= 768;
+            
+            alert(`
+Current Viewport: ${viewport.width}x${viewport.height}
+Device Type: ${isDesktop ? 'Desktop' : 'Mobile'}
+Date Picker Mode: ${isDesktop ? 'Desktop Dropdown' : 'Mobile Overlay'}
+            `);
+        }
+        
+        function runBrowserTests() {
+            const results = [];
+            
+            // Test 1: Check viewport
+            const viewport = getViewportSize();
+            const isDesktop = viewport.width >= 768;
+            results.push(`Viewport: ${viewport.width}x${viewport.height} (${isDesktop ? 'Desktop' : 'Mobile'})`);
+            
+            // Test 2: Check JavaScript support
+            results.push(`JavaScript: ${typeof window !== 'undefined' ? 'Enabled' : 'Disabled'}`);
+            
+            // Test 3: Check local storage
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                results.push('Local Storage: Enabled');
+            } catch (e) {
+                results.push('Local Storage: Disabled');
+            }
+            
+            // Test 4: Check fetch API
+            results.push(`Fetch API: ${typeof fetch !== 'undefined' ? 'Supported' : 'Not Supported'}`);
+            
+            // Test 5: Check touch support
+            results.push(`Touch Events: ${'ontouchstart' in window ? 'Supported' : 'Not Supported'}`);
+            
+            alert('Browser Test Results:\\n\\n' + results.join('\\n'));
+        }
+        
+        // Initialize page
+        updateSystemInfo();
+        updateViewportInfo();
+        
+        // Update viewport info when window is resized
+        window.addEventListener('resize', () => {
+            updateViewportInfo();
+            updateSystemInfo();
+        });
+        
+        // Auto-refresh system info every 5 seconds
+        setInterval(updateSystemInfo, 5000);
+    </script>
+</body>
+</html>
