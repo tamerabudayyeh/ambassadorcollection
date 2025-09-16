@@ -6,6 +6,9 @@ import { Footer } from '@/components/layout/footer'
 import { constructMetadata, getViewport, generateJsonLd } from '@/components/shared/seo'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { BookingProvider } from '@/contexts/BookingContext'
+import { generateMetadata as generateRootMetadata } from '@/components/seo/MetaTags'
+import { generateOrganizationSchema } from '@/components/seo/StructuredData'
+import Script from 'next/script'
 
 // Load fonts
 const heading = Cormorant_Garamond({ 
@@ -22,13 +25,18 @@ const body = Lato({
   display: 'swap'
 })
 
-export const metadata: Metadata = {
-  ...constructMetadata({
-    title: 'Ambassador Collection – Boutique Luxury Hotels in the Holy Land',
-    description: 'Experience authentic Jerusalem hospitality at the Ambassador Collection—Ambassador Jerusalem, Boutique, Comfort, and City Bethlehem. Warmth, comfort, and tradition meet boutique luxury.',
-  }),
-  manifest: '/site.webmanifest',
-}
+export const metadata: Metadata = generateRootMetadata({
+  title: 'Ambassador Hotels Collection - Luxury Hotels in Jerusalem',
+  description: 'Experience exceptional hospitality at Ambassador Hotels Collection. Four distinctive properties in the heart of Jerusalem offering luxury accommodations, fine dining, and authentic Israeli hospitality.',
+  keywords: [
+    'Ambassador Hotels Jerusalem',
+    'luxury hotels Jerusalem',
+    'boutique hotels Israel',
+    'Jerusalem accommodation',
+    'Holy Land hotels',
+    'business hotels Jerusalem'
+  ]
+})
 
 export const viewport = getViewport()
 
@@ -82,6 +90,8 @@ export default function RootLayout({
     ]
   })
   
+  const newOrganizationSchema = generateOrganizationSchema()
+
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`} data-scroll-behavior="smooth">
       <head>
@@ -91,6 +101,25 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema),
           }}
         />
+        <Script
+          id="organization-schema-new"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(newOrganizationSchema) }}
+        />
+
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `}
+        </Script>
       </head>
       <body>
         <AuthProvider>

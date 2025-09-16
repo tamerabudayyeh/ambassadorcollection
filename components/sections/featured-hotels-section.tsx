@@ -2,18 +2,17 @@
 
 import { motion } from 'framer-motion'
 import { HotelCard } from '@/components/hotel/hotel-card'
-import { urlFor } from '@/lib/imageUrl'
 
 interface Hotel {
-  _id: string
+  id: string
   name: string
-  slug: { current: string }
+  slug: string
   location: string
   description: string
-  image: any
+  image_url: string
   rating?: number
-  featured?: boolean
-  order?: number
+  is_featured?: boolean
+  display_order?: number
 }
 
 interface FeaturedHotelsSectionProps {
@@ -49,20 +48,20 @@ export function FeaturedHotelsSection({ hotels }: FeaturedHotelsSectionProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {hotels.map((hotel, index) => (
             <motion.div
-              key={hotel._id}
+              key={hotel.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
             >
               <HotelCard
-                slug={hotel.slug.current}
+                slug={hotel.slug}
                 name={hotel.name}
                 location={hotel.location}
                 description={hotel.description}
-                image={urlFor(hotel.image).width(800).height(600).url()}
+                image={hotel.image_url}
                 rating={hotel.rating}
-                featured={hotel.featured}
+                featured={hotel.is_featured}
               />
             </motion.div>
           ))}

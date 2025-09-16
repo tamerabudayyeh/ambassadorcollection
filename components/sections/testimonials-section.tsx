@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
-import { urlFor } from '@/lib/imageUrl'
 
 // Default testimonials for fallback
 const defaultTestimonials = [
@@ -123,9 +122,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                 {displayTestimonials[currentTestimonial].image && (
                   <div className="w-16 h-16 rounded-full overflow-hidden">
                     <Image
-                      src={displayTestimonials[currentTestimonial].image 
-                        ? urlFor(displayTestimonials[currentTestimonial].image).width(128).height(128).url()
-                        : "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"}
+                      src={displayTestimonials[currentTestimonial].image || "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"}
                       alt={displayTestimonials[currentTestimonial].name}
                       width={64}
                       height={64}

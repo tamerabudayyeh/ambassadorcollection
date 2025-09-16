@@ -33,7 +33,7 @@ const DEFAULT_KEYWORDS = [
 export function constructMetadata({
   title,
   description,
-  image = "https://cdn.sanity.io/images/qr7oyxid/production/8da3cd1a1e4d887be72e7d9182b58d10c80a3024-1024x636.jpg?rect=88,0,848,636&w=1920",
+  image = "https://hotelsamb.com/og-image.jpg",
   type = "website",
   keywords = DEFAULT_KEYWORDS,
   author = "Ambassador Collection Hotels",

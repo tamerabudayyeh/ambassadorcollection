@@ -1,0 +1,34 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://hotelsamb.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+
+# Allow important pages
+Allow: /hotels/
+Allow: /restaurants/
+Allow: /booking/
+Allow: /about/
+Allow: /contact/
+
+# Crawl delay for politeness
+Crawl-delay: 1
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2

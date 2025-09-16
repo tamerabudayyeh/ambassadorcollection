@@ -2,8 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { NewsletterSubscription } from '@/components/hotel/newsletter-subscription'
-import { client } from '@/lib/sanity'
-import { urlFor } from '@/lib/imageUrl'
+import { createClient } from '@/lib/supabase/server'
 import { HeroSection } from '@/components/sections/hero-section'
 import { StoryTeaserSection } from '@/components/sections/story-teaser-section'
 import { FeaturedHotelsSection } from '@/components/sections/featured-hotels-section'
@@ -12,66 +11,66 @@ import { ServicesSection } from '@/components/sections/services-section'
 import { TestimonialsSection } from '@/components/sections/testimonials-section'
 import { CTASection } from '@/components/sections/cta-section'
 
-// Fetch hotels from Sanity
+// Fetch hotels from Supabase CRM
 const fetchHotels = async () => {
-  const query = `*[_type == "hotel"] | order(order asc, name asc) { 
-    _id, 
-    name, 
-    slug, 
-    location, 
-    description, 
-    image, 
-    rating,
-    featured,
-    order
-  }`
-  return await client.fetch(query)
+  const supabase = createClient()
+  const { data: hotels } = await supabase
+    .from('hotels')
+    .select('*')
+    .eq('is_active', true)
+    .order('display_order', { ascending: true })
+
+  return hotels || []
 }
 
-// Fetch homepage data from CMS
+// Fetch homepage data - using static content now
 const fetchHomePage = async () => {
-  const query = `*[_type == "page" && pageType == "home"][0] {
-    title,
-    hero {
-      title,
-      subtitle,
-      image,
-      cta {
-        text,
-        link
+  return {
+    title: "Ambassador Hotels Collection - Jerusalem",
+    hero: {
+      title: "Your Home in the Heart of the Holy Land",
+      subtitle: "Experience authentic Jerusalem hospitality",
+      image: "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemLobbyWine.webp",
+      cta: {
+        text: "Explore Our Hotels",
+        link: "/hotels"
       }
-    },
-    content,
-    seo
-  }`
-  return await client.fetch(query)
+    }
+  }
 }
 
-// Fetch testimonials from CMS
+// Fetch testimonials - using static content for now
 const fetchTestimonials = async () => {
-  const query = `*[_type == "testimonial" && featured == true] | order(date desc)[0...6] {
-    _id,
-    name,
-    role,
-    content,
-    rating,
-    image,
-    "hotelName": hotel->name
-  }`
-  return await client.fetch(query)
+  return [
+    {
+      _id: '1',
+      name: "Sarah Mitchell",
+      role: "Returning Guest",
+      content: "The Ambassador Collection is more than hotels — it feels like family. Every stay is warm, genuine, and unforgettable.",
+      rating: 5,
+      image: null
+    },
+    {
+      _id: '2',
+      name: "David & Maria Chen",
+      role: "Anniversary Celebration",
+      content: "Our anniversary stay was nothing short of magical. The staff anticipated our every need.",
+      rating: 5,
+      image: null
+    }
+  ]
 }
 
-// Fetch site settings from CMS
+// Fetch site settings - using static content for now
 const fetchSiteSettings = async () => {
-  const query = `*[_type == "siteSettings"][0] {
-    title,
-    description,
-    contact,
-    socialMedia,
-    footer,
-    seo
-  }`
-  return await client.fetch(query)
+  return {
+    title: "Ambassador Hotels Collection",
+    description: "Luxury hotels in Jerusalem",
+    contact: {
+      email: "info@hotelsamb.com",
+      phone: "+972-2-6281999"
+    }
+  }
 }
 
 export default async function Home() {

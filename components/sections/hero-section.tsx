@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { urlFor } from '@/lib/imageUrl'
 
 interface HeroSectionProps {
   pageData?: any
@@ -15,9 +14,7 @@ export function HeroSection({ pageData, hotels = [] }: HeroSectionProps) {
   // Use CMS data if available, otherwise fallback to defaults
   const heroTitle = pageData?.hero?.title || "Your Home in the Heart of the Holy Land"
   const heroSubtitle = pageData?.hero?.subtitle || "Experience authentic Jerusalem hospitality"
-  const heroImage = pageData?.hero?.image
-    ? urlFor(pageData.hero.image).url()
-    : "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemLobbyWine.webp"
+  const heroImage = pageData?.hero?.image || "https://gnrnkhcavvgfdqysggaa.supabase.co/storage/v1/object/public/AmbassadorJerusalem/JerusalemLobbyWine.webp"
   const ctaText = pageData?.hero?.cta?.text || "Explore Our Hotels"
   const ctaLink = pageData?.hero?.cta?.link || "/hotels"
   return (

@@ -5,6 +5,8 @@ import { Metadata } from 'next'
 import { constructMetadata, generateJsonLd } from '@/components/shared/seo'
 import Script from 'next/script'
 import { Calendar, Users, MapPin, Sparkles, Clock } from 'lucide-react'
+import { StructuredData, generateHotelSchema } from '@/components/seo/StructuredData'
+import { generateHotelMetadata } from '@/components/seo/MetaTags'
 
 // Force dynamic rendering during build to avoid API issues
 export const dynamic = 'force-dynamic'
@@ -119,6 +121,20 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
     images: hotel.gallery?.map(img => img.image_url) || [hotel.image_url],
   })
 
+  // Generate structured data for SEO
+  const hotelSchema = generateHotelSchema({
+    ...hotel,
+    main_image: hotel.image_url,
+    contact: {
+      phone: hotel.contact_phone,
+      email: hotel.contact_email
+    },
+    location: {
+      address: hotel.address,
+      city: hotel.location
+    }
+  })
+
   return (
     <>
       <Script
@@ -126,6 +142,7 @@ export default async function HotelPage({ params }: { params: Promise<{ slug: st
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <StructuredData data={hotelSchema} />
 
       <div>
         {/* Hero Section */}

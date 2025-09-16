@@ -17,10 +17,6 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'gnrnkhcavvgfdqysggaa.supabase.co',
       },
-      {
-        protocol: 'https',
-        hostname: 'cdn.sanity.io',
-      },
     ],
   },
   output: 'standalone',

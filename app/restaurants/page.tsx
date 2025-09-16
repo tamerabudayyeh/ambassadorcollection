@@ -4,6 +4,9 @@ import { Clock, MapPin, ChefHat, Wine, Star } from 'lucide-react'
 import { constructMetadata } from '@/components/shared/seo'
 import { Metadata } from 'next'
 
+// Force dynamic rendering during build
+export const dynamic = 'force-dynamic'
+
 interface Restaurant {
   id: string
   slug: string

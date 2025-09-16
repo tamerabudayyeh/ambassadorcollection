@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { urlFor } from '@/lib/imageUrl'
 
 interface GalleryImage {
   _type?: string
@@ -29,13 +28,8 @@ function getImageUrl(img: GalleryImage | string): string {
     if (typeof img.asset._ref === 'string' && img.asset._ref.startsWith('http')) {
       return img.asset._ref
     }
-    // Otherwise it's a proper Sanity asset reference
-    try {
-      return urlFor(img).width(800).height(600).url() // Sanity object
-    } catch (error) {
-      console.log('urlFor failed in gallery, returning asset._ref:', error)
-      return img.asset._ref || ''
-    }
+    // Return asset._ref directly since we're no longer using Sanity
+    return img.asset._ref || ''
   }
   return ''
 }

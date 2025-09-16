@@ -1,23 +1,12 @@
 import { MetadataRoute } from 'next'
-import hotelsData from '@/Data/hotels.json'
+import { createClient } from '@/lib/supabase/server'
 
-function getHotels() {
-  return hotelsData.map(hotel => ({ slug: { current: hotel.slug } }))
-}
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const supabase = createClient()
+  const baseUrl = 'https://hotelsamb.com'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ambassadorcollection.com'
-  
-  const hotels = getHotels()
-  
-  const hotelUrls = hotels.map((hotel: any) => ({
-    url: `${baseUrl}/hotels/${hotel.slug.current}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-  
-  return [
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -28,6 +17,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/hotels`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/restaurants`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/booking`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
@@ -66,6 +67,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
-    ...hotelUrls,
   ]
+
+  try {
+    // Fetch all hotels
+    const { data: hotels } = await supabase
+      .from('hotels')
+      .select('slug, updated_at')
+      .eq('is_active', true)
+
+    const hotelPages: MetadataRoute.Sitemap = hotels?.map(hotel => ({
+      url: `${baseUrl}/hotels/${hotel.slug}`,
+      lastModified: hotel.updated_at ? new Date(hotel.updated_at) : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    })) || []
+
+    // Fetch all restaurants
+    const { data: restaurants } = await supabase
+      .from('restaurants')
+      .select('slug, updated_at')
+
+    const restaurantPages: MetadataRoute.Sitemap = restaurants?.map(restaurant => ({
+      url: `${baseUrl}/restaurants/${restaurant.slug}`,
+      lastModified: restaurant.updated_at ? new Date(restaurant.updated_at) : new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    })) || []
+
+    return [...staticPages, ...hotelPages, ...restaurantPages]
+  } catch (error) {
+    // Return static pages if database fetch fails
+    console.error('Error fetching dynamic sitemap data:', error)
+    return staticPages
+  }
 }
