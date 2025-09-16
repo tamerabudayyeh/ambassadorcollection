@@ -37,10 +37,9 @@ export async function GET(
         .then(({ data }) => data || []),
 
       supabase
-        .from('gallery')
+        .from('hotel_galleries')
         .select('*')
         .eq('hotel_id', hotel.id)
-        .eq('is_active', true)
         .order('display_order')
         .then(({ data }) => data || []),
 
