@@ -93,7 +93,7 @@ export default function RootLayout({
   const newOrganizationSchema = generateOrganizationSchema()
 
   return (
-    <html lang="en" className={`${heading.variable} ${body.variable}`} data-scroll-behavior="smooth">
+    <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <head>
         <script
           type="application/ld+json"

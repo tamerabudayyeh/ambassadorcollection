@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth Scroll Behavior */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* Booking Engine Styles */
 @layer components {
   .input {
